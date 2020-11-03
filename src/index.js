@@ -1,4 +1,5 @@
 //will be used for templates
+import $ from 'jquery';
 
 function landingPage(){
     console.log('landing page')
