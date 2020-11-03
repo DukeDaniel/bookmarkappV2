@@ -1,0 +1,17 @@
+.outerBox {
+    margin-bottom: 20px;
+    border: 1px solid grey;
+    padding: 20px;    
+}
+
+.upperSection {
+    margin-bottom: 20px;
+    border: 1px solid grey;
+    padding: 20px; 
+} 
+
+.bottomSection {
+    margin-bottom: 20px;
+    border: 1px solid grey;
+    padding: 20px; 
+}
