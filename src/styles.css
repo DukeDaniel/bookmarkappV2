@@ -1,17 +1,41 @@
 .outerBox {
-    margin-bottom: 20px;
-    border: 1px solid grey;
+    border: 2px solid grey;
     padding: 20px;    
 }
 
 .upperSection {
-    margin-bottom: 20px;
-    border: 1px solid grey;
-    padding: 20px; 
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px; 
 } 
 
 .bottomSection {
-    margin-bottom: 20px;
-    border: 1px solid grey;
-    padding: 20px; 
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+    vertical-align: middle; 
+}
+
+.listItemBox {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px; 
+}
+
+.listBoxes {
+    width: 50%;
+    padding: 10px; 
+}
+
+.listBoxes > li {
+    margin: auto;
+    border: 3px solid green;
+    padding: 10px;
+}
+
+input {
+    margin: 2px;
 }
