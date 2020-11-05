@@ -8,7 +8,7 @@ import api from './api'
 //Layout for starting page
 function startingPageLayout() {
     
-    return $('main').html(
+    $('main').html(
         `<h1>Bookmark App</h1>
             <div class="outerBox">
                 <div class="upperSection">
@@ -31,7 +31,7 @@ function startingPageLayout() {
 };
 
 function startForm() {
-    return $('.bottomSection').html(
+    $('.bottomSection').html(
         `<form class='submitInfo'>
             <label>Insert Bookmark Information below</label><br>
             <input id='title' type='text' value='title' required:True></input><br>
@@ -43,10 +43,10 @@ function startForm() {
                 <span><input type="radio" name="rating" id="str3" value="3"><label for="str3">3</label></span>
                 <span><input type="radio" name="rating" id="str2" value="2"><label for="str2">2</label></span>
                 <span><input type="radio" name="rating" id="str1" value="1"><label for="str1">1</label></span>
-            </div>
+                </div>
+                <button id='submit' type='submit'>Submit</button>
+                <button id='cancel'>Cancel</button> 
             </form>
-        <button id='submit' type='submit'>Submit</button>
-        <button id='cancel'>Cancel</button> 
         </form>`);
 };
 
@@ -56,7 +56,7 @@ function startForm() {
 function main() {
     //landingPage();
     startingPageLayout();
-    api.eventBinder();
+    api();
 };
 
 export default {

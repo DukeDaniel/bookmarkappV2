@@ -1,10 +1,9 @@
 //Application functions
 import $ from 'jquery';
 import index from './index'
-let title = $('#title').val();
-let url = $('#url').val();
-let description = $('#description').val();
-let rating = $('#rating').val();
+import store from './store';
+
+const BASE_URL = 'https://thinkful-list-api.herokuapp.com/Duke/bookmarks'
 
 
 
@@ -32,26 +31,42 @@ function cancelButton() {
 }
 
 function formSubmit() {
-    $('body').on('click', '#submit', function() {
-        submitFormToStore();
+    $('body').on('submit', '.submitInfo', (event) => {
+        event.preventDefault();
+        console.log('some stuff')
         console.log('form submitted');
-        index.startingPageLayout();
         console.log('returning to homepage');
+        
+        let newObj = {}
+        newObj.title = $('#title').val();
+        newObj.url = $('#url').val();
+        newObj.desc = $('#description').val();
+        newObj.rating = $('[name=rating]:checked').val();
+        fetch(`${BASE_URL}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newObj)
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+            store.store.bookmarks.push(responseJson);
+            //console.log(store.store.bookmarks)
+            index.startingPageLayout();    
+        })
     });
 };
 
 
-//Will take information from submit form and input it to the store
-function submitFormToStore() {
-    let title = $('#title').val();
-    let url = $('#url').val();
-    let description = $('#description').val();
-    let rating = $('#rating').val();
-    console.log(title);
-    console.log(url);
-    console.log(description);
-    console.log(rating);
-}
+
+    
+
+
+//shows list elements that are already in the store
+/*function showLists() {
+    for (let i=0; i<store.store.bookmarks.length)
+}*/
 
 
 //the HTML for the list box going into the app
@@ -66,7 +81,4 @@ function eventBinder() {
     formSubmit();
 }
 
-export default {
-    eventBinder,
-    
-}
+export default eventBinder
