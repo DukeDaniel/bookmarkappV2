@@ -2,14 +2,15 @@
 import $ from 'jquery';
 import './styles.css';
 import api from './api'
+import store from './store'
 //$('body').on('click', '#extra', function() {}
 
 
 //Layout for starting page
 function startingPageLayout() {
     
-    $('main').html(
-        `<h1>Bookmark App</h1>
+    $('main').html(`
+        <h1>Bookmark App</h1>
             <div class="outerBox">
                 <div class="upperSection">
                     <button id="create" type="button">Create</button>
@@ -25,7 +26,7 @@ function startingPageLayout() {
                         </select>
                 </div>
                 <div class="bottomSection">
-                <ul class='listBoxes'></ul>
+                <ul class='listBoxes'>${store.store.bookmarks.length}</ul>
                 </div>
             </div>`);
 };
@@ -35,7 +36,7 @@ function startForm() {
         `<form class='submitInfo'>
             <label>Insert Bookmark Information below</label><br>
             <input id='title' type='text' value='title' required:True></input><br>
-            <input id='url' type='text' value='url' required:True></input><br>
+            <input id='url' type='text' value='https://google.com' required:True></input><br>
             <textarea name="description" id="description" cols="30" rows="10" required:True>write your description</textarea>
             <div id="rating" class="rating" required:True>
                 <span><input type="radio" name="rating" id="str5" value="5"><label for="str5">5</label></span>
@@ -51,17 +52,25 @@ function startForm() {
 };
 
 
+function render(){
+    api.eventBinder();
+    $('#bottomSection').html(startingPageLayout());
+    store.scanStore();
+}
 
-
+function bookmarkList() {
+    api.showLists()
+        .then(function() {render()})
+}
 function main() {
-    //landingPage();
-    startingPageLayout();
-    api();
+    bookmarkList();
+    api.eventBinder();
 };
 
 export default {
     startForm,
-    startingPageLayout
+    startingPageLayout,
+    render
 }
 
 $(main);
