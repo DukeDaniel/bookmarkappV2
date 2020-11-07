@@ -33,7 +33,7 @@ function startingPageLayout() {
 
 function startForm() {
     $('.bottomSection').html(
-        `<form class='submitInfo'>
+        `<form id='submitInfo'>
             <label>Insert Bookmark Information below</label><br>
             <input id='title' type='text' value='title' required:True></input><br>
             <input id='url' type='text' value='https://google.com' required:True></input><br>
@@ -45,7 +45,7 @@ function startForm() {
                 <span><input type="radio" name="rating" id="str2" value="2"><label for="str2">2</label></span>
                 <span><input type="radio" name="rating" id="str1" value="1"><label for="str1">1</label></span>
                 </div>
-                <button id='submit' type='submit'>Submit</button>
+                <button type='submit'>Submit</button>
                 <button id='cancel'>Cancel</button> 
             </form>
         </form>`);
@@ -53,9 +53,14 @@ function startForm() {
 
 
 function render(){
-    api.eventBinder();
+    //api.eventBinder();
     $('#bottomSection').html(startingPageLayout());
     store.scanStore();
+    api.showLists()
+        .then(response => response.json())
+        .then(responsejson => {
+            store.store.bookmarks = responsejson;
+        });
 }
 
 function bookmarkList() {

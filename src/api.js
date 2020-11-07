@@ -19,6 +19,7 @@ function insertListElements() {
 //Create new bookmark
 function createNewBookmark() {
     $('body').on('click', '#create', function() {
+        console.log('click listener')
         store.store.adding = true;
         index.startForm();
     });
@@ -34,13 +35,19 @@ function cancelButton() {
 //button you click on a list item to delete it
 function deleteItemButton() {
     $('body').on('click', '.delButton', function(event) {
+        //event.stopImmediatePropagation(); 
         let id = $(event.target).closest(".scanning").attr("id");
         deleteBookmark(id)
-            .then(function() {showLists()
+            .then(function() {
+                showLists()
+                    .then(response => response.json())
+                    .then(responsejson => {
+                        store.store.bookmarks = responsejson;
+                    });
             })
-            .then(function() {index.render()
-            })
+            
     });
+
 }
 
 function deleteBookmark(id) {
@@ -51,10 +58,14 @@ function deleteBookmark(id) {
 
 //when i click submit after form is filled out
 function formSubmit() {
-    $('body').on('submit', '.submitInfo', (event) => {
-         event.preventDefault();
+    $('body').on('submit', '#submitInfo', function(event) {
+        event.stopImmediatePropagation(); 
+        event.preventDefault();
+         console.log('lillys dope');
         formPOST()
-            .then(function() {index.render()});
+            .then(function() {
+                store.store.adding = false;
+                index.render()});
 
     });
 }
@@ -90,8 +101,7 @@ function formPOST() {
 
 function showLists() {
     return fetch(`${BASE_URL}`)
-    .then(response => response.json())
-    .then(responsejson => store.store.bookmarks = responsejson)
+
 }
 
 
